@@ -1,4 +1,4 @@
-tag = $(shell date +%Y%m%d)
+tag = latest
 
 repo = archetype/mirc-ctp
 
@@ -36,6 +36,7 @@ focal-server-cloudimg-amd64.ova :
 
 nocloud.iso : user-data meta-data
 	genisoimage -output nocloud.iso -volid cidata -joliet -rock -input-charset utf-8 user-data meta-data
+
 
 .PHONY: clean
 clean :

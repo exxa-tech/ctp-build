@@ -8,7 +8,7 @@ build {
       "CTP-installer.jar", 
       "config-serveronly.xml",
       "Launcher.properties",
-      "run.sh"
+      "entrypoint.sh"
     ]
     destination = "/tmp/"
   }
@@ -43,6 +43,6 @@ source "docker" "alpine" {
     "USER root",
     "EXPOSE 1080 1443 25055",
     "WORKDIR /JavaPrograms/CTP",
-    "ENTRYPOINT [\"/bin/sh\", \"/tmp/run.sh\"]"
+    "ENTRYPOINT [\"/bin/sh\", \"/tmp/entrypoint.sh\"]"
   ]
 }
