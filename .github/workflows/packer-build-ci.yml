@@ -14,7 +14,7 @@ on:
       - "**.pkr.hcl"
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: docker.io
 
 jobs:
   packer:

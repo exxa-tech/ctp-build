@@ -1,6 +1,6 @@
 tag = $(shell date +%Y%m%d)
 
-repo = ghcr.io/australian-imaging-service/mirc-ctp
+repo = archetype/mirc-ctp
 
 all : .state_ctp-docker .state_ctp-ovf .state_ctp-vagrant .state_ctp-lxd
 

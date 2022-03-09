@@ -30,16 +30,16 @@ build {
 }
 variable "repo" {
   type = string
-  # default = "ghcr.io/australian-imaging-service/mirc-ctp"
+  default = "archetype/mirc-ctp"
 }
 variable "tag" {
   type = list(string)
 }
 source "docker" "alpine" {
-  image = "openjdk:8u212-jdk-alpine3.9"
+  image = "openjdk:16-jdk-alpine3.13"
   commit  = true
   changes = [
-    "LABEL org.opencontainers.image.source https://github.com/australian-imaging-service/ctp-build",
+    "LABEL org.opencontainers.image.source https://github.com/exxa-tech/ctp-build",
     "USER root",
     "EXPOSE 1080 1443 25055",
     "WORKDIR /JavaPrograms/CTP",
