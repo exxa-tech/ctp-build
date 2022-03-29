@@ -2,7 +2,7 @@ tag = latest
 
 repo = archetype/mirc-ctp
 
-all : .state_ctp-docker .state_ctp-ovf .state_ctp-vagrant .state_ctp-lxd
+all : .state_ctp-docker #.state_ctp-ovf .state_ctp-vagrant .state_ctp-lxd
 
 .state_ctp : mirc-ctp.json mirc-ctp.service src/CTP.tar.gz src/linux-x86_64 nocloud.iso
 	packer build mirc-ctp.json && touch state/mirc-ctp
@@ -13,20 +13,20 @@ all : .state_ctp-docker .state_ctp-ovf .state_ctp-vagrant .state_ctp-lxd
 # 	touch .state_ctp-docker
 
 .state_ctp-docker: ctp.pkr.hcl CTP-installer.jar
-	packer build -var='repo=$(repo)' -var='tag=["$(tag)"]' ctp.pkr.hcl
+	packer build -var='repo=$(repo)' ctp.pkr.hcl
 	touch .state_ctp-docker
 
-.state_ctp-ovf : mirc-ctp.json mirc-ctp.service CTP-installer.jar focal-server-cloudimg-amd64.ova nocloud.iso
-	packer build -only=virtualbox-ovf mirc-ctp.json
-	touch .state_ctp-ovf
+#.state_ctp-ovf : mirc-ctp.json mirc-ctp.service CTP-installer.jar focal-server-cloudimg-amd64.ova nocloud.iso
+#	packer build -only=virtualbox-ovf mirc-ctp.json
+#	touch .state_ctp-ovf
 
-.state_ctp-vagrant : mirc-ctp.json mirc-ctp.service CTP-installer.jar
-	packer build -only=vagrant mirc-ctp.json
-	touch .state_ctp-vagrant
+#.state_ctp-vagrant : mirc-ctp.json mirc-ctp.service CTP-installer.jar
+#	packer build -only=vagrant mirc-ctp.json
+#	touch .state_ctp-vagrant
 
-.state_ctp-lxd : mirc-ctp.json mirc-ctp.service CTP-installer.jar
-	packer build -only=lxd mirc-ctp.json
-	touch .state_ctp-lxd
+#.#state_ctp-lxd : mirc-ctp.json mirc-ctp.service CTP-installer.jar
+#	packer build -only=lxd mirc-ctp.json
+#	touch .state_ctp-lxd
 
 CTP-installer.jar :
 	curl -L -o./CTP-installer.jar http://mirc.rsna.org/download/CTP-installer.jar
@@ -35,7 +35,7 @@ focal-server-cloudimg-amd64.ova :
 	curl -L -o./focal-server-cloudimg-amd64.ova https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.ova
 
 nocloud.iso : user-data meta-data
-	genisoimage -output nocloud.iso -volid cidata -joliet -rock -input-charset utf-8 user-data meta-data
+	mkisofs -output nocloud.iso -volid cidata -joliet -rock -input-charset utf-8 user-data meta-data
 
 
 .PHONY: clean

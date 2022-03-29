@@ -1,7 +1,7 @@
 build {
-  name = "docker"
+  name = "ctp"
   sources = [
-    "source.docker.alpine"
+    "source.docker.debian"
   ]
   provisioner "file" {
     sources = [
@@ -14,8 +14,7 @@ build {
   }
   provisioner "shell" {
     inline = [
-      "apk update",
-      "apk add --no-cache tzdata",
+      "apt update",
       "mkdir -p /JavaPrograms/ && cd /JavaPrograms",
       "jar xf /tmp/CTP-installer.jar CTP",
       "mv /tmp/config-serveronly.xml /JavaPrograms/CTP/config.xml",
@@ -25,18 +24,14 @@ build {
   }
   post-processor "docker-tag" {
     repository = var.repo
-    tags = var.tag
   }
 }
 variable "repo" {
   type = string
   default = "archetype/mirc-ctp"
 }
-variable "tag" {
-  type = list(string)
-}
-source "docker" "alpine" {
-  image = "openjdk:16-jdk-alpine3.13"
+source "docker" "debian" {
+  image = "openjdk:18-jdk-slim-bullseye"
   commit  = true
   changes = [
     "LABEL org.opencontainers.image.source https://github.com/exxa-tech/ctp-build",
