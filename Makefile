@@ -10,7 +10,7 @@ all : .state_ctp-docker #.state_ctp-ovf .state_ctp-vagrant .state_ctp-lxd
 # DE_FILES = $(shell find docker-entrypoint.d -type f)
 # .state_ctp-docker : mirc-ctp.json CTP-installer.jar docker-entrypoint.sh docker-entrypoint.d $(DE_FILES)
 # 	packer build -only=docker mirc-ctp.json
-# 	touch .state_ctp-docker
+# 	touch .state_ctp-docker - made a random change
 
 .state_ctp-docker: ctp.pkr.hcl CTP-installer.jar
 	packer build -var='repo=$(repo)' ctp.pkr.hcl
