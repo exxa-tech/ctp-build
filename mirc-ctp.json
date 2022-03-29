@@ -1,7 +1,7 @@
 {
   "variables": {
     "build_version": "latest",
-    "JAVA_HOME": "/opt/openjdk-17",
+    "JAVA_HOME": "/usr/local/openjdk-18",
     "CTP_ROOT": "/JavaPrograms/CTP"
   },
 
@@ -43,7 +43,7 @@
       ],
       "inline": [
         "apt-get update",
-        "apt-get -y install openjdk-17-jdk-headless",
+        "apt-get -y install openjdk-18-jdk-headless",
         "mkdir -p /JavaPrograms",
         "cd /JavaPrograms && jar xf /tmp/CTP-installer.jar CTP",
         "if [ -f /tmp/mirc-ctp.service ]; then",
@@ -113,7 +113,7 @@
   "builders": [
     {
       "type": "docker",
-      "image": "openjdk:17-slim",
+      "image": "openjdk:18-jdk-slim-bullseye",
       "commit": true,
       "changes": [
         "CMD [\"java\", \"-jar\", \"libraries/CTP.jar\"]",
